@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from photos.prototype import load_services
+
+services = load_services('config/service.xml')
