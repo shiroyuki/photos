@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from photos.prototype import load_services
+import sys
+import argparse
+from photos.prototype import *
 
-services = load_services('config/service.xml')
+console = Console(__package__, 'config/service.xml')
+console.activate()

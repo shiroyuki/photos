@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <imagination>
-    <entity
-        id="command.db"
-        class="neptune.command.Database"
-        tags="command command:db">
-        <param name="db" type="entity">db</param>
+    <entity id="archive" class="photos.archive.Archive"/>
+    <entity id="photo.inspector" class="photos.command.Inspector" interceptable="false">
+        <param name="archive" type="entity">archive</param>
     </entity>
 </imagination>

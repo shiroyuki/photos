@@ -17,6 +17,7 @@ class Photograph(object):
         'Model':                 'model',
         'Orientation':           'orientation',
         'WhiteBalance':          'white_balance',
+        'DateTime':              'date_time',
     }
 
     exif_tag_maker_note = 'MakerNote'
@@ -41,15 +42,15 @@ class Photograph(object):
                 self._content = f.read()
 
         return self._content
- 
+
     def info(self, *keys):
         labels = self.exif_tag_to_attribute_map
-        exif  = self.exif
+        exif   = self.exif
 
         return {
             labels[k]: exif[k]
             for k in labels
-            if not keys or k in keys
+            if (not keys or k in keys) and k in exif
         }
 
     @property
