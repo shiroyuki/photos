@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<imagination>
+    <!-- Repositories -->
+    <factorization id="repo.photos" with="db.default" call="get_repository">
+        <param type="str" name="session_id">recycle</param>
+        <param type="class" name="ref_class">photos.entity.Photography</param>
+    </factorization>
+    <factorization id="repo.photos" with="db.default" call="get_repository">
+        <param type="str" name="session_id">recycle</param>
+        <param type="class" name="ref_class">photos.entity.Photography</param>
+    </factorization>
+</imagination>

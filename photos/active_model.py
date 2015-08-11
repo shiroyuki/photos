@@ -1,6 +1,7 @@
 import hashlib
 from PIL import Image
 from PIL import ExifTags
+from photos.entity import Photography as P
 
 class Photograph(object):
     exif_tag_to_attribute_map = {
@@ -86,6 +87,38 @@ class Photograph(object):
     @exif.setter
     def exif(self, value):
         self._exif = value
+
+    def create_entity(self):
+        width, height = self.original().size
+
+        info = self.info()
+
+        # Override the dimension.
+        info['width']  = width
+        info['height'] = height
+
+        # Rewrite the data.
+        if 'aperture' in info:
+            info['original_aperture'] = info['aperture']
+            info['aperture']          = float(info['aperture'][0]) / info['aperture'][1]
+
+        if 'focal_length' in info:
+            info['original_focal_length'] = info['focal_length']
+            info['focal_length']          = float(info['focal_length'][0]) / info['focal_length'][1]
+
+        if 'exposure_time' in info:
+            info['original_exposure_time'] = info['exposure_time']
+
+            if info['exposure_time'][0] > info['exposure_time'][1]:
+                info['exposure_time'] = str(info['exposure_time'][0])
+            else:
+                info['exposure_time'] = '{}/{}'.format(info['exposure_time'][0], info['exposure_time'][1])
+
+        return P(
+            location = self.location,
+            hashsum  = self.hashsum,
+            **info
+        )
 
     def _load_image(self):
         if self._original:

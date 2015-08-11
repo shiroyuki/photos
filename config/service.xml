@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <imagination>
     <entity id="archive" class="photos.archive.Archive"/>
-    <entity id="photo.inspector" class="photos.command.Inspector" interceptable="false">
-        <param name="archive" type="entity">archive</param>
+    <entity id="service.metadata_aggregator" class="photos.aggregator.MetadataAggregator">
+        <param name="archive"    type="entity">archive</param>
+        <param name="photo_repo" type="entity">repo.photos</param>
     </entity>
 </imagination>

@@ -3,8 +3,8 @@ from photos.prototype import ICommand
 class MetadataAggregator(ICommand):
     """ Inspect the photo metadata. """
 
-    def __init__(self, archive):
-        self.archive = archive
+    def __init__(self, service):
+        self.service = service
 
     def define(self, parser):
         parser.add_argument(
@@ -13,16 +13,24 @@ class MetadataAggregator(ICommand):
         )
 
     def execute(self, args):
-        photo = self.archive.open(args.path)
+        import os
+        import re
 
-        print('Location:  {}'.format(photo.location))
-        print('SHA1 Hash: {}'.format(photo.hashsum))
+        path_list = os.walk('/Users/jnopporn/Desktop/Releaseables')
 
-        info = photo.info()
+        re_expected_extensions = re.compile('.+\.(jpe?g|tiff|png)$', re.IGNORECASE)
 
-        for l in info:
-            v = info[l]
-            print('{:<20}: {}'.format(l, v))
+        target_paths = []
+
+        for inspected_path, _, file_paths in path_list:
+            target_paths.extend([
+                os.path.join(inspected_path, file_path)
+                for file_path in file_paths
+                if re_expected_extensions.search(file_path)
+            ])
+
+        for target_path in target_paths:
+            self.service.analyze(target_path)
 
 class Inspector(ICommand):
     """ Inspect the photo metadata. """

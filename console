@@ -5,5 +5,14 @@ import sys
 import argparse
 from photos.prototype import *
 
-console = Console(__package__, 'config/service.xml')
+console = Console(
+    __package__,
+    'config/settings.json',
+    [
+        'config/repository.xml',
+        'config/service.xml',
+        'config/command.xml',
+    ]
+)
+
 console.activate()

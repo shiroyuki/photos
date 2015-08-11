@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<imagination>
+    <entity id="photo.inspector" class="photos.command.Inspector" interceptable="false">
+        <param name="archive" type="entity">archive</param>
+    </entity>
+    <entity id="photos.metadata.aggregator" class="photos.command.MetadataAggregator">
+        <param name="service" type="entity">service.metadata_aggregator</param>
+    </entity>
+</imagination>
