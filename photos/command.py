@@ -11,12 +11,17 @@ class MetadataAggregator(ICommand):
             '--debug',
             help='Enable the debugging mode.'
         )
+        parser.add_argument(
+            'path',
+            required=True,
+            help='Enable the debugging mode.'
+        )
 
     def execute(self, args):
         import os
         import re
 
-        path_list = os.walk('/Users/jnopporn/Desktop/Releaseables')
+        path_list = os.walk(args.path)
 
         re_expected_extensions = re.compile('.+\.(jpe?g|tiff|png)$', re.IGNORECASE)
 
@@ -29,7 +34,14 @@ class MetadataAggregator(ICommand):
                 if re_expected_extensions.search(file_path)
             ])
 
+        total_count = len(target_paths)
+        index = 0
+
         for target_path in target_paths:
+            index += 1
+
+            print('({}/{}) Analyzing {}...'.format(index, total_count, target_path))
+
             self.service.analyze(target_path)
 
 class Inspector(ICommand):
