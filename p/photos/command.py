@@ -13,7 +13,6 @@ class MetadataAggregator(ICommand):
         )
         parser.add_argument(
             'path',
-            required=True,
             help='Enable the debugging mode.'
         )
 
