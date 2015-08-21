@@ -1,11 +1,14 @@
 package main
 
+import "os"
 import "fmt"
 import "time"
 import "gopkg.in/mgo.v2"
+import "gopkg.in/mgo.v2/bson"
 
 type Photograph struct {
-    Exposure_time          string    // : "10/6400",
+    Id                     bson.ObjectId `bson:"_id"`
+    ExposureTime           string        `bson:"exposure_time"`// : "10/6400",
 	Date_time              time.Time //: "2014:09:11 21:28:08",
 	Original_focal_length  []uint32  //: [10, 6400],
 	Orientation            uint8     //: 1,
@@ -40,12 +43,17 @@ func main() {
 
     var result Photograph
 
-    c   := session.DB(database).C(collection)
-    err = c.Find(nil).One(&result)
+    query := bson.M{"aperture": 2.8, "model": "NIKON D810"}
+
+    err = session.DB(database).C(collection).Find(query).One(&result)
 
     if err != nil {
-        panic(err)
+        fmt.Println(err)
+        os.Exit(1)
     }
 
-    fmt.Println(result)
+    fmt.Println(result.Location)
+    fmt.Println(result.Model)
+    fmt.Println(result.Aperture)
+    fmt.Println(result.ExposureTime)
 }
