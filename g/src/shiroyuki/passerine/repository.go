@@ -1,4 +1,4 @@
-package dbal
+package passerine
 
 import "gopkg.in/mgo.v2"
 

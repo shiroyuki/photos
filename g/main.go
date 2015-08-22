@@ -3,7 +3,7 @@ package main
 import "os"
 import "fmt"
 import "gopkg.in/mgo.v2/bson"
-import "shiroyuki/photos/dbal"
+import "shiroyuki/passerine"
 import "shiroyuki/photos/models"
 
 // func main() {
@@ -37,7 +37,7 @@ import "shiroyuki/photos/models"
 
 func main() {
     var err        error
-    var repository dbal.Repository
+    var repository passerine.Repository
     var result     models.Photograph
 
     url        := "mongodb://127.0.0.1:27017"
@@ -45,7 +45,7 @@ func main() {
     collection := "photographs"
     // query      := nil
 
-    repository = dbal.Repository{
+    repository = passerine.Repository{
         Url:            url,
         DatabaseName:   database,
         CollectionName: collection,
